@@ -99,7 +99,7 @@ function calculateTotal() {
   let cartTotal = 0;
   let cartlistLength = cartList.length;
   for (i=0; i < cartlistLength; i++) {
-    cartTotal =+ products[i].price;
+    cartTotal += products[i].price;
   }
   console.log (cartTotal);
 }
@@ -108,6 +108,17 @@ function calculateTotal() {
 function generateCart() {
   // Using the "cartlist" array that contains all the items in the shopping cart,
   // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
+  var CART = [ ];
+  for (i=0; i< cartList.length; i++) { // per a cada element de l'array cartlist
+    for (j=0; j < cart.length; j++) { // el comparem amb cada element de l'array CART
+        if (carList[i].id === cart [j].id) { //
+            cart[j].quantity += 1;
+        }
+    cartList[i].quantity === 1; // !!!! TO DO. esto se puede hacer?
+    CART.push[cartList[i]];
+    console.log(CART);
+    }
+  }
 }
 
 // Exercise 5
