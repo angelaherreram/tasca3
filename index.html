@@ -26,6 +26,8 @@
 						 <span class="navbar-toggler-icon"></span>
 					 </button>
 					 <ul class="navbar-nav me-3 me-lg-0 d-flex flex-row align-items-center">
+						<div class="text-center me-2"><button type="button" onclick="generateCart(cartList)" class="btn btn-outline-dark">Generate cart</button></div>
+
 						 <li class="dropdown search-dropdown nav-item py-lg-3">						 
 							 <a href="javascript:void(0)" class="btn btn-outline-dark flex-center" type="button" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="open_modal()" data-bs-auto-close="outside">
 								<i class="fas fa-shopping-cart me-1"></i> Cart <span class="badge bg-dark text-white ms-1 rounded-pill" id="count_product">0</span>
@@ -46,6 +48,7 @@
 						<li class="nav-item">
 						  <a class="nav-link" href="#clothes"><i class="fas fa-tshirt"></i> Clothes</a>
 						</li>
+
 
 					 </ul>
 				 </div>
@@ -237,8 +240,20 @@
 						</tr>
 					  </thead>
 					  <tbody id="cart_list">
-						<tr>
-						  <th scope="row">Cooking oil</th>
+
+						<th scope="row"> Text </th>
+						  <td>$0</td>
+						  <td>0</td>
+						  <td>$0</td>
+						</tr>
+
+						<th scope="row" id="newRow"> Text </th>
+						<td>$0</td>
+						<td>0</td>
+						<td>$0</td>
+					  </tr>
+						<!-- <tr>
+						 <th scope="row">Cooking oil</th>
 						  <td>$10.5</td>
 						  <td>2</td>
 						  <td>$21</td>
@@ -254,7 +269,7 @@
 						  <td>$15</td>
 						  <td>3</td>
 						  <td>$45</td>
-						</tr>
+						</tr> -->
 					  </tbody>
 				  </table>
 				  <div class="text-center fs-3">
@@ -262,7 +277,7 @@
 				  </div>
 				  <div class="text-center"> 
 					<a href="checkout.html" class="btn btn-primary m-3">Checkout</a>
-					<a href="javascript:void(0)" onclick="cleanCart()" class="btn btn-primary m-3">Clean Cart</a>
+					<a href="javascript:void(0)" onclick="cleanCart(cartList)" class="btn btn-primary m-3">Clean Cart</a>
 				  </div>
 			  </div>
 			</div>

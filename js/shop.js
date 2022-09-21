@@ -71,6 +71,8 @@ var cart = [];
 
 var total = 0;
 
+//PROVES
+
 // Exercise 1
 function buy(id) {
   // 1. Loop for to the array products to get the item to add to cart
@@ -86,49 +88,92 @@ function buy(id) {
 
 // Exercise 2
 // buidem el carret amb splice. A partir de la posició 0 i per a tota la length, no afegim res.
-function cleanCart() {
-  let cartlistLength = cartList.length;
-  cartList.splice(0, cartlistLength);
+function cleanCart(cartList) {
+  cartList.splice(0, cartList.length);
   console.log(cartList);
-// funciona al console log però no es buida el carret
+  // funciona al console log però no es buida el carret
 }
 
 // Exercise 3
-function calculateTotal() {
+function calculateTotal(cartList) {
   // Calculate total price of the cart using the "cartList" array
-  let cartTotal = 0;
-  let cartlistLength = cartList.length;
-  for (i=0; i < cartlistLength; i++) {
-    cartTotal += products[i].price;
+  for (i = 0; i < cartList.length; i++) {
+    total += products[i].price;
   }
-  console.log (cartTotal);
+  console.log(total);
 }
 
 // Exercise 4
-function generateCart() {
+function generateCart(cartList) {
   // Using the "cartlist" array that contains all the items in the shopping cart,
   // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
-  var CART = [ ];
-  for (i=0; i< cartList.length; i++) { // per a cada element de l'array cartlist
-    for (j=0; j < cart.length; j++) { // el comparem amb cada element de l'array CART
-        if (carList[i].id === cart [j].id) { //
-            cart[j].quantity += 1;
-        }
-    cartList[i].quantity === 1; // !!!! TO DO. esto se puede hacer?
-    CART.push[cartList[i]];
-    console.log(CART);
+
+  for (i = 0; i < cartList.length; i++) {
+
+    let getID = cartList[i].id;
+    let cartProduct = cart.find((p) => getID === p.id);
+
+    if (cartProduct == undefined) {
+      cartList[i].quantity = 1;
+      cart.push(cartList[i]);
+
+    } else {
+      cartProduct.quantity += 1;  // !!! ME SUMA TAMBIÉN EN EL CARTLIST, como si fuera el mismo objeto
     }
   }
+  console.log(cartList);
+  console.log(cart);
+  applyPromotionsCart(cart);
 }
 
+
 // Exercise 5
-function applyPromotionsCart() {
+function applyPromotionsCart(cart) {
   // Apply promotions to each item in the array "cart"
+  for (i = 0; i < cart.length; i++) {
+
+  switch (cart[i].id) {
+
+    case 1:
+
+      if (cart[i].quantity >= 3) {
+        var DISCOUNT_PRICE= 10;
+        let quantity = cart[i].quantity;
+        let price = cart[i].price;
+        cart[i].subtotal = quantity * price;
+        cart[i].subtotalWithDiscount = DISCOUNT_PRICE * quantity; // TO DO: REDONDEAR DECIMALES
+      }
+
+      case 3:
+
+        if (cart[i].quantity >= 10) {
+          var DISCOUNT_CAKE = 2/3;
+          let quantity = cart[i].quantity;
+          let price = cart[i].price;
+          cart[i].subtotal = quantity * price;
+          let cakePriceDiscount = cart[i].price * DISCOUNT_CAKE;
+          cart[i].subtotalWithDiscount = quantity * cakePriceDiscount;
+        }
+  }
+}
+console.log(cart);
 }
 
 // Exercise 6
-function printCart() {
+function printCart(cart) {
   // Fill the shopping cart modal manipulating the shopping cart dom
+  let DOMcart = document.getElementById("cart_list");
+  let cartModal = document.getElementById("cartModal");
+
+  for (i=0; i < cart.length; i++) {
+    DOMcart.querySelector('th').textContent = cart[i].name;
+    DOMcart.querySelectorAll('td')[0].textContent = cart[i].price;
+    DOMcart.querySelectorAll('td')[1].textContent = cart[i].quantity;
+    DOMcart.querySelectorAll('td')[2].textContent = cart[i].subtotalWithDiscount;
+
+//TO DO - CLONE
+
+}
 }
 
 // ** Nivell II **
@@ -148,5 +193,5 @@ function removeFromCart(id) {
 
 function open_modal() {
   console.log("Open Modal");
-  printCart();
+  printCart(cart);
 }
