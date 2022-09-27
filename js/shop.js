@@ -127,10 +127,13 @@ function generateCart(cartList) {
 }
 
 
-// Exercise 5
+// Exercise 5 // 
 function applyPromotionsCart(cart) {
   // Apply promotions to each item in the array "cart"
   for (i = 0; i < cart.length; i++) {
+
+    let quantity = cart[i].quantity;
+    let price = cart[i].price;
 
   switch (cart[i].id) {
 
@@ -138,25 +141,33 @@ function applyPromotionsCart(cart) {
 
       if (cart[i].quantity >= 3) {
         var DISCOUNT_PRICE= 10;
-        let quantity = cart[i].quantity;
-        let price = cart[i].price;
         cart[i].subtotal = quantity * price;
-        cart[i].subtotalWithDiscount = DISCOUNT_PRICE * quantity; // TO DO: REDONDEAR DECIMALES
+        cart[i].subtotalWithDiscount = (DISCOUNT_PRICE * quantity).toFixed(2); 
+      } else {
+        cart[i].subtotal = quantity * price;
+        cart[i].subtotalWithDiscount = cart[i].subtotal;
       }
 
       case 3:
 
         if (cart[i].quantity >= 10) {
           var DISCOUNT_CAKE = 2/3;
-          let quantity = cart[i].quantity;
-          let price = cart[i].price;
           cart[i].subtotal = quantity * price;
           let cakePriceDiscount = cart[i].price * DISCOUNT_CAKE;
-          cart[i].subtotalWithDiscount = quantity * cakePriceDiscount;
+          cart[i].subtotalWithDiscount = (quantity * cakePriceDiscount).toFixed(2);
+        } else {
+          cart[i].subtotal = quantity * price;
+          cart[i].subtotalWithDiscount = cart[i].subtotal;
+        }
+
+        case 2,4,5,6,7,8,9:
+
+          cart[i].subtotal = quantity * price;
+          cart[i].subtotalWithDiscount = cart[i].subtotal;
         }
   }
-}
-console.log(cart);
+  console.log(cart);
+
 }
 
 // Exercise 6
@@ -171,27 +182,46 @@ function printCart(cart) {
     DOMcart.querySelectorAll('td')[1].textContent = cart[i].quantity;
     DOMcart.querySelectorAll('td')[2].textContent = cart[i].subtotalWithDiscount;
 
-//TO DO - CLONE
+//!!!!!!!!!! TO DO - CLONE
 
 }
 }
 
 // ** Nivell II **
 
-// Exercise 7
-function addToCart(id) {
+// Exercise 8
+function addToCart(id) { // TO DO: provar si funciona 
   // Refactor previous code in order to simplify it
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+  for (let i = 0; i < products.length; i++) {
+    if (id === products[i].id) {
+      cartList.push(products[i]);
+      generateCart(cartList);
+      console.log(cart);
+      applyPromotionsCart(cart);
+    }
+    }
+  }
+
+  // Exercise 9
+  function removeFromCart(id) {// 
+    // 1. Loop for to the array products to get the item to add to cart
+    // 2. Add found product to the cartList array
+
+    for (let i = 0; i < cart.length; i++) {
+      if (id === cart[i].id) {
+        if (cart[i].quantity > 1) {
+          cart[i].quantity -= 1;
+          applyPromotionsCart(cart);
+        } else if (cart[i].quantity === 1) {
+          cart.splice(i-1, 1);
+        }
+      }
+  }
 }
 
-// Exercise 8
-function removeFromCart(id) {
-  // 1. Loop for to the array products to get the item to add to cart
-  // 2. Add found product to the cartList array
-}
-
-function open_modal() {
-  console.log("Open Modal");
-  printCart(cart);
-}
+  function open_modal() {
+    console.log("Open Modal");
+    printCart(cart);
+  }
